@@ -1,4 +1,4 @@
-## Welcome to GitHub Pages
+## NNDScape - The NND RuneScape private server
 
 You can use the [editor on GitHub](https://github.com/mickie456/NNDScape/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
 
