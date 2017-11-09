@@ -5,7 +5,6 @@ import server.model.items.UseItem;
 import server.model.players.Client;
 import server.model.players.PacketType;
 
-
 public class ItemOnNpc implements PacketType {
 
 	@Override
@@ -15,9 +14,8 @@ public class ItemOnNpc implements PacketType {
 		int slot = c.getInStream().readSignedWordBigEndian();
 		@SuppressWarnings("static-access")
 		int npcId = Server.npcHandler.npcs[i].npcType;
-		
+
 		UseItem.ItemonNpc(c, itemId, npcId, slot);
-		
 
 	}
 

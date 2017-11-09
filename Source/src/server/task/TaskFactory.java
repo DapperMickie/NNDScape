@@ -6,43 +6,39 @@ import server.util.ScriptManager;
 
 public class TaskFactory {
 
-	public static Task getDelayedTask(final String callbackFunction,
-			final Client client, final int actionX, final int actionY) {
-		Task task = new Task(client, false) {
-			@Override
-			public void run() {
-				synchronized (PlayerHandler.players) {
-					ScriptManager.callFunc(callbackFunction, client, actionX,
-							actionY);
-				}
-			}
-		};
-		return task;
-	}
-
-	public static Task getDelayedTask(final String callbackFunction,
-			final Client client, final int actionID, final int actionX,
+	public static Task getDelayedTask(final String callbackFunction, final Client client, final int actionX,
 			final int actionY) {
 		Task task = new Task(client, false) {
 			@Override
 			public void run() {
 				synchronized (PlayerHandler.players) {
-					ScriptManager.callFunc(callbackFunction, client, actionID,
-							actionX, actionY);
+					ScriptManager.callFunc(callbackFunction, client, actionX, actionY);
 				}
 			}
 		};
 		return task;
 	}
 
-	public static Task getDelayedGlobalTask(final String callbackFunction,
-			final int actionID, final int actionX, final int actionY) {
+	public static Task getDelayedTask(final String callbackFunction, final Client client, final int actionID,
+			final int actionX, final int actionY) {
+		Task task = new Task(client, false) {
+			@Override
+			public void run() {
+				synchronized (PlayerHandler.players) {
+					ScriptManager.callFunc(callbackFunction, client, actionID, actionX, actionY);
+				}
+			}
+		};
+		return task;
+	}
+
+	public static Task getDelayedGlobalTask(final String callbackFunction, final int actionID, final int actionX,
+			final int actionY) {
 		Task task = new Task(null, true) {
 			@Override
 			public void run() {
 				synchronized (PlayerHandler.players) {
-					ScriptManager.callFunc(callbackFunction, actionID, actionX,
-							actionY);
+					ScriptManager.callFunc(callbackFunction, actionID, actionX, actionY);
 				}
 			}
 		};

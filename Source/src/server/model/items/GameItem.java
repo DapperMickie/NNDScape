@@ -1,6 +1,5 @@
 package server.model.items;
 
-
 public class GameItem {
 	public int id, amount;
 	public boolean stackable = false;
@@ -9,7 +8,7 @@ public class GameItem {
 		if (Item.itemStackable[id]) {
 			stackable = true;
 		}
-	this.id = id;
-	this.amount = amount;
+		this.id = id;
+		this.amount = amount;
 	}
 }

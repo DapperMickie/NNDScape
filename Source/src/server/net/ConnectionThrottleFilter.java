@@ -29,14 +29,14 @@ public class ConnectionThrottleFilter extends IoFilterAdapter {
 	public void setAllowedInterval(long allowedInterval) {
 		this.allowedInterval = allowedInterval;
 	}
-	
+
 	public void delayClient(IoSession session, int delay) {
 		long d = System.currentTimeMillis() - delay;
 		clients.put(getAddress(session), d);
 	}
-	
+
 	private InetAddress getAddress(IoSession io) {
-		return ((InetSocketAddress)io.getRemoteAddress()).getAddress();
+		return ((InetSocketAddress) io.getRemoteAddress()).getAddress();
 	}
 
 	public boolean isConnectionOk(IoSession session) {
@@ -44,18 +44,19 @@ public class ConnectionThrottleFilter extends IoFilterAdapter {
 		long now = System.currentTimeMillis();
 		if (clients.containsKey(addr)) {
 			long lastConnTime = clients.get(addr);
-			
+
 			if (now - lastConnTime < allowedInterval) {
 				int c = 0;
-				if(!counts.containsKey(addr))
+				if (!counts.containsKey(addr))
 					counts.put(addr, 0);
-				else c = counts.get(addr) + 1;
-				if(c >= 350) {
-					
+				else
+					c = counts.get(addr) + 1;
+				if (c >= 350) {
+
 					c = 0;
 				}
 				counts.put(addr, c);
-				//Logger.err("["+host+"] Session dropped (delay="+(now-lastConnTime)+"ms)");
+				// Logger.err("["+host+"] Session dropped (delay="+(now-lastConnTime)+"ms)");
 				return false;
 			} else {
 				clients.put(addr, now);
@@ -66,27 +67,27 @@ public class ConnectionThrottleFilter extends IoFilterAdapter {
 			return true;
 		}
 	}
-	
+
 	public void closedSession(IoSession io) {
 		connectedAddresses.remove(getAddress(io));
 	}
-	
+
 	public void acceptedLogin(IoSession io) {
 		connectedAddresses.add(getAddress(io));
 	}
-	
+
 	public boolean isConnected(IoSession io) {
 		return connectedAddresses.contains(getAddress(io));
 	}
-	
-	public int[] getSizes() { 
-		return new int[] { clients.size(), counts.size(), connectedAddresses.size() }; 
+
+	public int[] getSizes() {
+		return new int[] { clients.size(), counts.size(), connectedAddresses.size() };
 	}
-	
+
 	public void connectionOk(IoSession io) {
 		counts.remove(getAddress(io));
 	}
-	
+
 	@Override
 	public void sessionCreated(NextFilter nextFilter, IoSession session) throws Exception {
 		if (!isConnectionOk(session)) {

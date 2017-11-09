@@ -74,17 +74,14 @@ public class ScriptManager {
 			for (File child : children)
 				if (child.isFile()) {
 					if (child.getName().endsWith(".py")) {
-						System.out.println("\tLoading script: "
-								+ child.getPath());
-						ScriptManager.python
-								.execfile(new FileInputStream(child));
+						System.out.println("\tLoading script: " + child.getPath());
+						ScriptManager.python.execfile(new FileInputStream(child));
 						ScriptManager.scriptsLoaded++;
 					}
 				} else
 					ScriptManager.recurse(child.getPath());
 		}
-		System.out.println("Loaded " + ScriptManager.scriptsLoaded
-				+ " scripts!");
+		System.out.println("Loaded " + ScriptManager.scriptsLoaded + " scripts!");
 		ScriptManager.scriptsLoaded = 0;
 	}
 
@@ -95,10 +92,8 @@ public class ScriptManager {
 			for (File child : children)
 				if (child.isFile()) {
 					if (child.getName().endsWith(".py")) {
-						System.out.println("\tLoading script: \r"
-								+ child.getPath());
-						ScriptManager.python
-								.execfile(new FileInputStream(child));
+						System.out.println("\tLoading script: \r" + child.getPath());
+						ScriptManager.python.execfile(new FileInputStream(child));
 						ScriptManager.scriptsLoaded++;
 					}
 				} else

@@ -9,34 +9,35 @@ import server.model.players.PacketType;
  */
 public class Trade implements PacketType {
 	public boolean inTrade;
+
 	@Override
 	public void processPacket(Client c, int packetType, int packetSize) {
 		int tradeId = c.getInStream().readSignedWordBigEndian();
 		c.getPA().resetFollow();
-		
+
 		if (c.inTrade) {
-		c.sendMessage("You cannot walk while in a trade.");
-		return;
+			c.sendMessage("You cannot walk while in a trade.");
+			return;
 		}
-		if(c.arenas()) {
+		if (c.arenas()) {
 			c.sendMessage("You can't trade inside the arena!");
 			return;
 		}
-                if (c.InDung()) {
-                         c.sendMessage("You cannot trade inside Dungoneering!");
-                         return;
+		if (c.InDung()) {
+			c.sendMessage("You cannot trade inside Dungoneering!");
+			return;
 		}
 		if (c.inWild()) {
-                         c.sendMessage("You can't trade in the wilderness!");
-                         return;
+			c.sendMessage("You can't trade in the wilderness!");
+			return;
 		}
-		if(c.playerRights == 2 && !Config.ADMIN_CAN_TRADE) {
+		if (c.playerRights == 2 && !Config.ADMIN_CAN_TRADE) {
 			c.sendMessage("Trading as an administrator has been disabled.");
 			return;
 		}
-		
+
 		if (tradeId != c.playerId)
 			c.getTradeAndDuel().requestTrade(tradeId);
 	}
-		
+
 }

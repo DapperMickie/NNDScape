@@ -15,12 +15,12 @@ public class ItemOnGroundItem implements PacketType {
 		int gItemY = c.getInStream().readSignedWordA();
 		int itemUsedSlot = c.getInStream().readSignedWordBigEndianA();
 		int gItemX = c.getInStream().readUnsignedWord();
-		
-		switch(itemUsed) {
-		
+
+		switch (itemUsed) {
+
 		default:
-			if(c.playerRights == 6)
-				Misc.println("ItemUsed "+itemUsed+" on Ground Item "+groundItem);
+			if (c.playerRights == 6)
+				Misc.println("ItemUsed " + itemUsed + " on Ground Item " + groundItem);
 			break;
 		}
 	}

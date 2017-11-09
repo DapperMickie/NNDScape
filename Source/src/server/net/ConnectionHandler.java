@@ -10,8 +10,7 @@ import server.model.players.Client;
 public class ConnectionHandler implements IoHandler {
 
 	@Override
-	public void exceptionCaught(IoSession arg0, Throwable arg1)
-			throws Exception {
+	public void exceptionCaught(IoSession arg0, Throwable arg1) throws Exception {
 		// TODO Auto-generated method stub
 
 	}
@@ -19,11 +18,11 @@ public class ConnectionHandler implements IoHandler {
 	@Override
 	public void messageReceived(IoSession arg0, Object arg1) throws Exception {
 		if (arg0.getAttachment() != null) {
-			Packet packet = (Packet)arg1;
+			Packet packet = (Packet) arg1;
 			Client client = (Client) arg0.getAttachment();
-			if(packet.getId() == 41) {
+			if (packet.getId() == 41) {
 				client.timeOutCounter = 0;
-			        client.wearId = packet.readUnsignedWord();
+				client.wearId = packet.readUnsignedWord();
 				client.wearSlot = packet.readUnsignedWordA();
 				client.interfaceId = packet.readUnsignedWordA();
 				client.getItems().wearItem(client.wearId, client.wearSlot);
@@ -41,7 +40,7 @@ public class ConnectionHandler implements IoHandler {
 
 	@Override
 	public void sessionClosed(IoSession arg0) throws Exception {
-		if(arg0.getAttachment() != null) {
+		if (arg0.getAttachment() != null) {
 			Client plr = (Client) arg0.getAttachment();
 			plr.disconnected = true;
 		}
@@ -50,7 +49,7 @@ public class ConnectionHandler implements IoHandler {
 
 	@Override
 	public void sessionCreated(IoSession arg0) throws Exception {
-		if(!HostList.getHostList().add(arg0)) {
+		if (!HostList.getHostList().add(arg0)) {
 			arg0.close();
 		} else {
 			arg0.setAttribute("inList", Boolean.TRUE);

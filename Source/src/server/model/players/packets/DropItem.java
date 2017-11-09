@@ -21,19 +21,19 @@ public class DropItem implements PacketType {
 			return;
 		}
 
-		if(c.playerRights == 2 && !Config.ADMIN_CAN_DROP) {
+		if (c.playerRights == 2 && !Config.ADMIN_CAN_DROP) {
 			c.sendMessage("Dropping items as an administrator has been disabled.");
 			return;
 		}
-		if(c.arenas()) {
+		if (c.arenas()) {
 			c.sendMessage("You can't drop items inside the arena!");
 			return;
 		}
-		if(c.InDung()) {
+		if (c.InDung()) {
 			c.sendMessage("You can't drop items inside Dung!");
 			return;
-		}	
-		if(!c.getItems().playerHasItem(itemId,1,slot)) {
+		}
+		if (!c.getItems().playerHasItem(itemId, 1, slot)) {
 			return;
 		}
 		if (System.currentTimeMillis() - c.alchDelay < 1800)
@@ -45,8 +45,8 @@ public class DropItem implements PacketType {
 				break;
 			}
 		}
-		if(c.playerItemsN[slot] != 0 && itemId != -1 && c.playerItems[slot] == itemId + 1) {
-			if(droppable) {
+		if (c.playerItemsN[slot] != 0 && itemId != -1 && c.playerItems[slot] == itemId + 1) {
+			if (droppable) {
 				if (c.underAttackBy > 0) {
 					if (c.getShops().getItemShopValue(itemId) > 10000) {
 						c.sendMessage("You may not drop items worth more than 10,000gp while in combat.");
@@ -54,16 +54,17 @@ public class DropItem implements PacketType {
 					}
 				}
 
-				//Server.itemHandler.createGroundItem(c, itemId, c.getX(), c.getY(), c.playerItemsN[slot], c.getId());
+				// Server.itemHandler.createGroundItem(c, itemId, c.getX(), c.getY(),
+				// c.playerItemsN[slot], c.getId());
 				c.getItems().deleteItem(itemId, slot, c.playerItemsN[slot]);
 			} else {
 				c.sendMessage("This item cannot be dropped.");
 			}
 		}
-			if(c.playerItemsN[slot] != 0 && itemId != -1 && c.playerItems[slot] == itemId + 1) {
-if(!c.getItems().playerHasItem(itemId,1,slot)) {
-			c.sendMessage("Stop cheating!");
-			return;
+		if (c.playerItemsN[slot] != 0 && itemId != -1 && c.playerItems[slot] == itemId + 1) {
+			if (!c.getItems().playerHasItem(itemId, 1, slot)) {
+				c.sendMessage("Stop cheating!");
+				return;
 			}
 		}
 	}

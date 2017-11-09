@@ -1,6 +1,5 @@
 package server.event;
 
-
 /**
  * Holds extra data for an event (for example the tick time etc).
  * 

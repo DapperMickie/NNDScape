@@ -1,6 +1,5 @@
 package server.event;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,16 +18,16 @@ public class EventManager implements Runnable {
 	private static EventManager singleton = null;
 
 	/**
-	 * The waitFor variable is multiplied by this before the call to wait() is
-	 * made. We do this because other events may be executed after waitFor is
-	 * set (and take time). We may need to modify this depending on event count?
-	 * Some proper tests need to be done.
+	 * The waitFor variable is multiplied by this before the call to wait() is made.
+	 * We do this because other events may be executed after waitFor is set (and
+	 * take time). We may need to modify this depending on event count? Some proper
+	 * tests need to be done.
 	 */
 	private static final double WAIT_FOR_FACTOR = 0.5;
 
 	/**
-	 * Gets the event manager singleton. If there is no singleton, the singleton
-	 * is created.
+	 * Gets the event manager singleton. If there is no singleton, the singleton is
+	 * created.
 	 * 
 	 * @return The event manager singleton.
 	 */
@@ -95,11 +94,12 @@ public class EventManager implements Runnable {
 			// process all events
 			for (EventContainer container : events) {
 				if (container.isRunning()) {
-					if ((System.currentTimeMillis() - container.getLastRun()) >= container
-							.getTick()) {
+					if ((System.currentTimeMillis() - container.getLastRun()) >= container.getTick()) {
 						try {
 							container.execute();
-						} catch (Exception e){e.printStackTrace();}	
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
 					}
 					if (container.getTick() < waitFor || waitFor == -1) {
 						waitFor = container.getTick();
@@ -123,8 +123,7 @@ public class EventManager implements Runnable {
 				} else {
 					// an event is running, wait for that time or until a new
 					// event is added
-					int decimalWaitFor = (int) (Math.ceil(waitFor
-							* WAIT_FOR_FACTOR));
+					int decimalWaitFor = (int) (Math.ceil(waitFor * WAIT_FOR_FACTOR));
 					wait(decimalWaitFor);
 				}
 			} catch (InterruptedException e) {

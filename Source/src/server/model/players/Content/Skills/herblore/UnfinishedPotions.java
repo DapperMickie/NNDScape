@@ -1,4 +1,4 @@
-package server.model.content.skills.herblore;
+package server.model.players.Content.Skills.herblore;
 
 public enum UnfinishedPotions {
 	

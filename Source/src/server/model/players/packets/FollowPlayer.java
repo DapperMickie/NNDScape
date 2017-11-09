@@ -8,12 +8,12 @@ import server.model.players.PacketType;
  * Follow Player
  **/
 public class FollowPlayer implements PacketType {
-	
+
 	@SuppressWarnings("static-access")
 	@Override
 	public void processPacket(Client c, int packetType, int packetSize) {
 		int followPlayer = c.getInStream().readUnsignedWordBigEndian();
-		if(Server.playerHandler.players[followPlayer] == null) {
+		if (Server.playerHandler.players[followPlayer] == null) {
 			return;
 		}
 		c.playerIndex = 0;
@@ -23,5 +23,5 @@ public class FollowPlayer implements PacketType {
 		c.usingRangeWeapon = false;
 		c.followDistance = 1;
 		c.followId = followPlayer;
-	}	
+	}
 }

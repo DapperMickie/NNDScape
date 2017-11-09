@@ -42,8 +42,7 @@ public class ISAACRandomGen {
 		 * for (int i = 0; i < seed.length; ++i) rsl[i] = seed[i];
 		 */
 		// ... this is faster and safe:
-		System.arraycopy(seed, 0, rsl, 0,
-				(seed.length <= rsl.length) ? seed.length : rsl.length);
+		System.arraycopy(seed, 0, rsl, 0, (seed.length <= rsl.length) ? seed.length : rsl.length);
 
 		init(true);
 	}

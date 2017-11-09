@@ -12,8 +12,8 @@ public class Clan {
 		this.owner = c.playerName;
 		this.name = name;
 	}
-		
-	public int[] members = new int [50];
+
+	public int[] members = new int[50];
 	public String name;
 	public String owner;
 	public int playerz = 0;

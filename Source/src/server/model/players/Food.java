@@ -1,6 +1,7 @@
 package server.model.players;
 
 import java.util.HashMap;
+
 public class Food {
 
 
@@ -10,7 +11,6 @@ public class Food {
     this.c = c;  
   }
   public static enum FoodToEat {    
-    
 	HEIM_CRAB(18159,12,"Heim crab"),
 	ROCKTAIL(15272,24,"Rocktail"),
     MANTA(391,22,"Manta Ray"),
@@ -55,48 +55,55 @@ public class Food {
 
 
 
-    private int id; private int heal; private String name;
+		private int id;
+		private int heal;
+		private String name;
 
-    private FoodToEat(int id, int heal, String name) {
-      this.id = id;
-      this.heal = heal;
-      this.name = name;    
-    }
+		private FoodToEat(int id, int heal, String name) {
+			this.id = id;
+			this.heal = heal;
+			this.name = name;
+		}
 
-    public int getId() {
-      return id;
-    }
+		public int getId() {
+			return id;
+		}
 
-    public int getHeal() {
-      return heal;
-    }
+		public int getHeal() {
+			return heal;
+		}
 
-    public String getName() {
-      return name;
-    }
-    public static HashMap <Integer,FoodToEat> food = new HashMap<Integer,FoodToEat>();
+		public String getName() {
+			return name;
+		}
 
-    public static FoodToEat forId(int id) {
-      return food.get(id);
-    }
+		public static HashMap<Integer, FoodToEat> food = new HashMap<Integer, FoodToEat>();
 
-    static {
-    for (FoodToEat f : FoodToEat.values())
-      food.put(f.getId(), f);
-    }
-  }
-  public int gwdarmourStat(double amount) {
-		return (int)(c.getLevelForXP(c.playerXP[3]) * amount);
+		public static FoodToEat forId(int id) {
+			return food.get(id);
+		}
+
+		static {
+			for (FoodToEat f : FoodToEat.values())
+				food.put(f.getId(), f);
+		}
 	}
-  public boolean hasFullPrimal() {
-    return c.playerEquipment[c.playerHat] == 13362 && c.playerEquipment[c.playerChest] == 13360 && c.playerEquipment[c.playerLegs] == 13361;
-  }
 
-  public boolean torva() {
-    return c.playerEquipment[c.playerHat] == 13362 && c.playerEquipment[c.playerChest] == 13360 && c.playerEquipment[c.playerLegs] == 13361;
-  }
+	public int gwdarmourStat(double amount) {
+		return (int) (c.getLevelForXP(c.playerXP[3]) * amount);
+	}
 
-    	public void eat(int id, int slot) {
+	public boolean hasFullPrimal() {
+		return c.playerEquipment[c.playerHat] == 13362 && c.playerEquipment[c.playerChest] == 13360
+				&& c.playerEquipment[c.playerLegs] == 13361;
+	}
+
+	public boolean torva() {
+		return c.playerEquipment[c.playerHat] == 13362 && c.playerEquipment[c.playerChest] == 13360
+				&& c.playerEquipment[c.playerLegs] == 13361;
+	}
+
+	public void eat(int id, int slot) {
 		if (c.duelRule[6]) {
 			c.sendMessage("You may not eat in this duel.");
 			return;
@@ -105,36 +112,36 @@ public class Food {
 			c.getCombat().resetPlayerAttack();
 			c.attackTimer += 2;
 			c.startAnimation(829);
-			c.getItems().deleteItem(id,slot,1);
+			c.getItems().deleteItem(id, slot, 1);
 			FoodToEat f = FoodToEat.food.get(id);
 			if (c.playerLevel[3] < gwdarmourStat(1.41) && c.torva()) {
 				c.playerLevel[3] += f.getHeal();
 				if (c.playerLevel[3] > gwdarmourStat(1.41))
 					c.playerLevel[3] = gwdarmourStat(1.41);
-			}
-			else if (c.playerLevel[3] < c.getLevelForXP(c.playerXP[3]) && !c.torva()) {
+			} else if (c.playerLevel[3] < c.getLevelForXP(c.playerXP[3]) && !c.torva()) {
 				c.playerLevel[3] += f.getHeal();
-				if(id != 15272) {
-				if (c.playerLevel[3] > c.getLevelForXP(c.playerXP[3]))
-					c.playerLevel[3] = c.getLevelForXP(c.playerXP[3]);
-//this makes sure normal food doesn't overload
-			} else {
-// this says if their eating rocktails and their hp level is more then their player xp + 10, then make it playerxp + 10. If it isnt then it will overload anyway.
-			if ((c.playerLevel[3] > (c.getLevelForXP(c.playerXP[3])))) {
-					c.playerLevel[3] = c.getLevelForXP(c.playerXP[3]) + 10;
-			}
-			}
+				if (id != 15272) {
+					if (c.playerLevel[3] > c.getLevelForXP(c.playerXP[3]))
+						c.playerLevel[3] = c.getLevelForXP(c.playerXP[3]);
+					// this makes sure normal food doesn't overload
+				} else {
+					// this says if their eating rocktails and their hp level is more then their
+					// player xp + 10, then make it playerxp + 10. If it isnt then it will overload
+					// anyway.
+					if ((c.playerLevel[3] > (c.getLevelForXP(c.playerXP[3])))) {
+						c.playerLevel[3] = c.getLevelForXP(c.playerXP[3]) + 10;
+					}
+				}
 			}
 			c.foodDelay = System.currentTimeMillis();
 			c.getPA().refreshSkill(3);
 			c.sendMessage("You eat the " + f.getName() + ".");
-		}			
+		}
 	}
 
 
-  public boolean isFood(int id) {
-    return FoodToEat.food.containsKey(id);
-  }  
-
+	public boolean isFood(int id) {
+		return FoodToEat.food.containsKey(id);
+	}
 
 }

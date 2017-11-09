@@ -9,7 +9,7 @@ import server.util.Misc;
  * 
  * @author Ryan / Lmctruck30
  * 
- * Proper Streams
+ *         Proper Streams
  */
 
 public class ItemClick2 implements PacketType {
@@ -17,33 +17,33 @@ public class ItemClick2 implements PacketType {
 	@Override
 	public void processPacket(Client c, int packetType, int packetSize) {
 		int itemId = c.getInStream().readSignedWordA();
-		
-		if (!c.getItems().playerHasItem(itemId,1))
+
+		if (!c.getItems().playerHasItem(itemId, 1))
 			return;
 
 		switch (itemId) {
-			case 11283:
-			case 11284:
-			case 11285:
-			c.sendMessage("Your shield has "+c.dfsCount+" charges");
+		case 11283:
+		case 11284:
+		case 11285:
+			c.sendMessage("Your shield has " + c.dfsCount + " charges");
 			break;
 
-			case 11694:
+		case 11694:
 
-				c.sendMessage("Dismantling has been disabled due to duping");
+			c.sendMessage("Dismantling has been disabled due to duping");
 			break;
-			case 11696:
-				c.sendMessage("Dismantling has been disabled due to duping");
+		case 11696:
+			c.sendMessage("Dismantling has been disabled due to duping");
 			break;
-			case 11698:
-				c.sendMessage("Dismantling has been disabled due to duping");
+		case 11698:
+			c.sendMessage("Dismantling has been disabled due to duping");
 			break;
-			case 11700:
-				c.sendMessage("Dismantling has been disabled due to duping");
+		case 11700:
+			c.sendMessage("Dismantling has been disabled due to duping");
 			break;
 		default:
 			if (c.playerRights == 6)
-				Misc.println(c.playerName+ " - Item3rdOption: "+itemId);
+				Misc.println(c.playerName + " - Item3rdOption: " + itemId);
 			break;
 		}
 

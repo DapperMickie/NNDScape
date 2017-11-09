@@ -10,12 +10,12 @@ import server.Server;
 import server.util.Misc;
 
 /**
-* Shops
-**/
+ * Shops
+ **/
 
 public class ShopHandler {
 
-	public static int MaxShops = 101; 
+	public static int MaxShops = 101;
 	public static int MaxShopItems = 101;
 	public static int MaxInShopItems = 20;
 	public static int MaxShowDelay = 10;
@@ -29,14 +29,14 @@ public class ShopHandler {
 	public static String[] ShopName = new String[MaxShops];
 	public static int[] ShopSModifier = new int[MaxShops];
 	public static int[] ShopBModifier = new int[MaxShops];
-	
+
 	public ShopHandler() {
-		for(int i = 0; i < MaxShops; i++) {
-			for(int j = 0; j < MaxShopItems; j++) {
+		for (int i = 0; i < MaxShops; i++) {
+			for (int j = 0; j < MaxShopItems; j++) {
 				ResetItem(i, j);
 				ShopItemsSN[i][j] = 0;
 			}
-			ShopItemsStandard[i] = 0; 
+			ShopItemsStandard[i] = 0;
 			ShopSModifier[i] = 0;
 			ShopBModifier[i] = 0;
 			ShopName[i] = "";
@@ -46,14 +46,14 @@ public class ShopHandler {
 	}
 
 	public static void shophandler() {
-	Misc.println("Shop Handler class successfully loaded");
+		Misc.println("Shop Handler class successfully loaded");
 	}
-	
+
 	@SuppressWarnings("static-access")
 	public void process() {
 		boolean DidUpdate = false;
-		for(int i = 1; i <= TotalShops; i++) {
-			for(int j = 0; j < MaxShopItems; j++) {
+		for (int i = 1; i <= TotalShops; i++) {
+			for (int j = 0; j < MaxShopItems; j++) {
 				if (ShopItems[i][j] > 0) {
 					if (ShopItemsDelay[i][j] >= MaxShowDelay) {
 						if (j <= ShopItemsStandard[i] && ShopItemsN[i][j] <= ShopItemsSN[i][j]) {
@@ -76,9 +76,10 @@ public class ShopHandler {
 			if (DidUpdate == true) {
 				for (int k = 1; k < Config.MAX_PLAYERS; k++) {
 					if (Server.playerHandler.players[k] != null) {
-						if (Server.playerHandler.players[k].isShopping == true && Server.playerHandler.players[k].myShopId == i) {
+						if (Server.playerHandler.players[k].isShopping == true
+								&& Server.playerHandler.players[k].myShopId == i) {
 							Server.playerHandler.players[k].updateShop = true;
-							DidUpdate =false;
+							DidUpdate = false;
 							Server.playerHandler.players[k].updateshop(i);
 						}
 					}
@@ -95,7 +96,7 @@ public class ShopHandler {
 			ResetItem(ShopID, ArrayID);
 		}
 	}
-	
+
 	public void ResetItem(int ShopID, int ArrayID) {
 		ShopItems[ShopID][ArrayID] = 0;
 		ShopItemsN[ShopID][ArrayID] = 0;
@@ -114,18 +115,18 @@ public class ShopHandler {
 		int ReadMode = 0;
 		BufferedReader characterfile = null;
 		try {
-			characterfile = new BufferedReader(new FileReader("./Data/CFG/"+FileName));
-		} catch(FileNotFoundException fileex) {
-			Misc.println(FileName+": file not found.");
+			characterfile = new BufferedReader(new FileReader("./Data/CFG/" + FileName));
+		} catch (FileNotFoundException fileex) {
+			Misc.println(FileName + ": file not found.");
 			return false;
 		}
 		try {
 			line = characterfile.readLine();
-		} catch(IOException ioexception) {
-			Misc.println(FileName+": error loading file.");
+		} catch (IOException ioexception) {
+			Misc.println(FileName + ": error loading file.");
 			return false;
 		}
-		while(EndOfFile == false && line != null) {
+		while (EndOfFile == false && line != null) {
 			line = line.trim();
 			int spot = line.indexOf("=");
 			if (spot > -1) {
@@ -158,15 +159,23 @@ public class ShopHandler {
 				}
 			} else {
 				if (line.equals("[ENDOFSHOPLIST]")) {
-					try { characterfile.close(); } catch(IOException ioexception) { }
+					try {
+						characterfile.close();
+					} catch (IOException ioexception) {
+					}
 					return true;
 				}
 			}
 			try {
 				line = characterfile.readLine();
-			} catch(IOException ioexception1) { EndOfFile = true; }
+			} catch (IOException ioexception1) {
+				EndOfFile = true;
+			}
 		}
-		try { characterfile.close(); } catch(IOException ioexception) { }
+		try {
+			characterfile.close();
+		} catch (IOException ioexception) {
+		}
 		return false;
 	}
 }

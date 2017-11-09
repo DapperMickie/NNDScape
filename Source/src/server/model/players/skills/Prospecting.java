@@ -6,15 +6,19 @@ import server.event.EventManager;
 import server.model.players.Client;
 
 /**
-* Prospecting action. Part of the mining skill.
-* @author Fire cape.
-*/
+ * Prospecting action. Part of the mining skill.
+ * 
+ * @author Fire cape.
+ */
 public class Prospecting {
-	
+
 	/**
 	 * Prospects the rock.
-	 * @param c The client class.
-	 * @param itemId The name of the item within the object.
+	 * 
+	 * @param c
+	 *            The client class.
+	 * @param itemId
+	 *            The name of the item within the object.
 	 */
 	public void prospectRock(final Client c, final String itemName) {
 		c.sendMessage("You examine the rock for ores...");
@@ -22,10 +26,10 @@ public class Prospecting {
 
 			@Override
 			public void execute(EventContainer container) {
-				c.sendMessage("This rock contains "+itemName+".");
+				c.sendMessage("This rock contains " + itemName + ".");
 				container.stop();
 			}
-			
+
 		}, 3000);
 	}
 }

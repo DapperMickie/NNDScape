@@ -16,22 +16,18 @@ public class TaskManager {
 			.newScheduledThreadPool(1);
 
 	public static Future<?> registerClientTask(Task task, int delay) {
-		Future<?> taskFuture = TaskManager.scheduledExecutor.schedule(task,
-				delay, TimeUnit.SECONDS);
+		Future<?> taskFuture = TaskManager.scheduledExecutor.schedule(task, delay, TimeUnit.SECONDS);
 		if (!task.isGlobal())
 			task.getClient().setCurrentTask(taskFuture);
 		return taskFuture;
 	}
 
-	public static Future<?> registerDelayedTask(Runnable task, int delay,
-			TimeUnit unit) {
+	public static Future<?> registerDelayedTask(Runnable task, int delay, TimeUnit unit) {
 		return TaskManager.scheduledExecutor.schedule(task, delay, unit);
 	}
 
-	public static Future<?> scheduleTask(Runnable task, int delay, int rate,
-			TimeUnit unit) {
-		return TaskManager.scheduledExecutor.scheduleWithFixedDelay(task,
-				delay, rate, unit);
+	public static Future<?> scheduleTask(Runnable task, int delay, int rate, TimeUnit unit) {
+		return TaskManager.scheduledExecutor.scheduleWithFixedDelay(task, delay, rate, unit);
 	}
 
 }

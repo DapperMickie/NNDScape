@@ -23,8 +23,8 @@ public class ChangeAppearance implements PacketType {
 		int legsColour = c.getInStream().readSignedByte();
 		int feetColour = c.getInStream().readSignedByte();
 		int skinColour = c.getInStream().readSignedByte();
-		
-		if (c.canChangeAppearance) { 
+
+		if (c.canChangeAppearance) {
 			c.playerAppearance[0] = gender; // gender
 			c.playerAppearance[1] = head; // head
 			c.playerAppearance[2] = torso;// Torso
@@ -42,6 +42,6 @@ public class ChangeAppearance implements PacketType {
 			c.getPA().removeAllWindows();
 			c.getPA().requestUpdates();
 			c.canChangeAppearance = false;
-		}	
-	}	
+		}
+	}
 }

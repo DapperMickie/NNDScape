@@ -3,7 +3,7 @@ package server.model.objects;
 import server.Server;
 
 public class Object {
-	
+
 	public int objectId;
 	public int objectX;
 	public int objectY;
@@ -12,7 +12,7 @@ public class Object {
 	public int type;
 	public int newId;
 	public int tick;
-	
+
 	public Object(int id, int x, int y, int height, int face, int type, int newId, int ticks) {
 		this.objectId = id;
 		this.objectX = x;
@@ -24,6 +24,5 @@ public class Object {
 		this.tick = ticks;
 		Server.objectManager.addObject(this);
 	}
-
 
 }

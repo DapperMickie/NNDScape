@@ -25,19 +25,23 @@ public class WalkingHandler {
 
 	public boolean traversable(int x, int y, int direction) {
 		int flag = map.getFlag(x, y);
-		//System.out.println(direction);
-        if (direction == 0 && (flag == 1 || flag == 4 || flag == 6 || flag == 7 || flag == 9 || flag == 11 || flag == 13 || flag == 14)) {
-            return false;
-        } else if (direction == 4 && (flag == 1 || flag == 7 || flag == 15 || flag == 10 || flag == 11 || flag == 12 || flag == 14 || flag == 5)) {
-            return false;
-        } else if (direction == 8 && (flag == 1 || flag == 2 || flag == 3 || flag == 4 || flag == 5 || flag == 6 || flag == 7 || flag == 12)) {
-            return false;
-        } else if (direction == 12 && (flag == 1 || flag == 3 || flag == 6 || flag == 9 || flag == 10 || flag == 11 || flag == 12 || flag == 8)) {
-            return false;
-        } else if(flag > 0 && flag < 15) {
+		// System.out.println(direction);
+		if (direction == 0 && (flag == 1 || flag == 4 || flag == 6 || flag == 7 || flag == 9 || flag == 11 || flag == 13
+				|| flag == 14)) {
+			return false;
+		} else if (direction == 4 && (flag == 1 || flag == 7 || flag == 15 || flag == 10 || flag == 11 || flag == 12
+				|| flag == 14 || flag == 5)) {
+			return false;
+		} else if (direction == 8 && (flag == 1 || flag == 2 || flag == 3 || flag == 4 || flag == 5 || flag == 6
+				|| flag == 7 || flag == 12)) {
+			return false;
+		} else if (direction == 12 && (flag == 1 || flag == 3 || flag == 6 || flag == 9 || flag == 10 || flag == 11
+				|| flag == 12 || flag == 8)) {
+			return false;
+		} else if (flag > 0 && flag < 15) {
 			return false;
 		}
-        return true;
+		return true;
 	}
 
 	public void initialize() throws Exception {
@@ -47,7 +51,7 @@ public class WalkingHandler {
 		FileChannel channel = raf.getChannel();
 		MappedByteBuffer buffer = channel.map(FileChannel.MapMode.READ_ONLY, 0, channel.size());
 		int length = buffer.getInt();
-		for(int i = 0; i < length; i++) {
+		for (int i = 0; i < length; i++) {
 			int x = buffer.getShort();
 			int y = buffer.getShort();
 			byte flag = buffer.get();
@@ -57,7 +61,7 @@ public class WalkingHandler {
 	}
 
 	private static class TiledMap {
-	
+
 		private final byte[] plane;
 
 		public TiledMap(int width, int height) {

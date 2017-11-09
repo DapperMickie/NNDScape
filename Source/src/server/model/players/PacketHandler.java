@@ -39,13 +39,12 @@ import server.model.players.packets.Trade;
 import server.model.players.packets.Walking;
 import server.model.players.packets.WearItem;
 
-
-public class PacketHandler{
+public class PacketHandler {
 
 	private static PacketType packetId[] = new PacketType[256];
-	
+
 	static {
-		
+
 		SilentPacket u = new SilentPacket();
 		packetId[3] = u;
 		packetId[202] = u;
@@ -78,8 +77,8 @@ public class PacketHandler{
 		packetId[155] = cn;
 		packetId[17] = cn;
 		packetId[21] = cn;
-		packetId[16] = new ItemClick2();		
-		packetId[75] = new ItemClick3();	
+		packetId[16] = new ItemClick2();
+		packetId[75] = new ItemClick3();
 		packetId[122] = new ClickItem();
 		packetId[241] = new ClickingInGame();
 		packetId[4] = new Chat();
@@ -125,24 +124,22 @@ public class PacketHandler{
 		packetId[60] = new ClanChat();
 	}
 
-
-	public static void processPacket(Client c, int packetType, int packetSize) {	
-		if(packetType == -1) {
+	public static void processPacket(Client c, int packetType, int packetSize) {
+		if (packetType == -1) {
 			return;
 		}
 		PacketType p = packetId[packetType];
-		if(p != null) {
+		if (p != null) {
 			try {
-				//System.out.println("packet: " + packetType);
+				// System.out.println("packet: " + packetType);
 				p.processPacket(c, packetType, packetSize);
-			} catch(Exception e) {
-					e.printStackTrace();
-					c.disconnected = true; //this is for when the isaac gets out of wack the player will d
+			} catch (Exception e) {
+				e.printStackTrace();
+				c.disconnected = true; // this is for when the isaac gets out of wack the player will d
 			}
 		} else {
-			System.out.println("Unhandled packet type: "+packetType+ " - size: "+packetSize);
+			System.out.println("Unhandled packet type: " + packetType + " - size: " + packetSize);
 		}
 	}
-	
 
 }

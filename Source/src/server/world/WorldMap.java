@@ -7,6 +7,7 @@ import java.util.Hashtable;
 public final class WorldMap {
 
 	public static Hashtable<Integer, GameObject> gameObjects = new Hashtable<Integer, GameObject>();
+
 	public static boolean solidObjectExists(int x, int y) {
 		GameObject go = gameObjects.get(y + (x << 16));
 		if (go != null && go.type() == 2 && go.x() == x && go.y() == y) {
@@ -46,26 +47,22 @@ public final class WorldMap {
 			moveY = -1;
 		}
 		if (moveX > 0 && moveY > 0) {
-			if (solidObjectExists(baseX + 1, baseY + 1)
-					|| solidObjectExists(baseX + 1, baseY)
+			if (solidObjectExists(baseX + 1, baseY + 1) || solidObjectExists(baseX + 1, baseY)
 					|| solidObjectExists(baseX, baseY + 1)) {
 				return false;
 			}
 		} else if (moveX < 0 && moveY < 0) {
-			if (solidObjectExists(baseX - 1, baseY - 1)
-					|| solidObjectExists(baseX - 1, baseY)
+			if (solidObjectExists(baseX - 1, baseY - 1) || solidObjectExists(baseX - 1, baseY)
 					|| solidObjectExists(baseX, baseY - 1)) {
 				return false;
 			}
 		} else if (moveX > 0 && moveY < 0) {
-			if (solidObjectExists(baseX + 1, baseY - 1)
-					|| solidObjectExists(baseX + 1, baseY)
+			if (solidObjectExists(baseX + 1, baseY - 1) || solidObjectExists(baseX + 1, baseY)
 					|| solidObjectExists(baseX, baseY - 1)) {
 				return false;
 			}
 		} else if (moveX < 0 && moveY > 0) {
-			if (solidObjectExists(baseX - 1, baseY + 1)
-					|| solidObjectExists(baseX - 1, baseY)
+			if (solidObjectExists(baseX - 1, baseY + 1) || solidObjectExists(baseX - 1, baseY)
 					|| solidObjectExists(baseX, baseY + 1)) {
 				return false;
 			}
@@ -119,7 +116,7 @@ public final class WorldMap {
 			e2.printStackTrace();
 		}
 	}
-	
+
 	public static final HashMap<Integer, String> map = new HashMap<Integer, String>();
-	
+
 }

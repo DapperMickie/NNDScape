@@ -3,7 +3,6 @@ package server.model.players.packets;
 import server.model.players.Client;
 import server.model.players.PacketType;
 
-
 /**
  * Magic on items
  **/
@@ -16,9 +15,9 @@ public class MagicOnItems implements PacketType {
 		@SuppressWarnings("unused")
 		int junk = c.getInStream().readSignedWord();
 		int spellId = c.getInStream().readSignedWordA();
-		
+
 		c.usingMagic = true;
-		if(c.playerItems[slot]-1 != itemId) { // cheat client
+		if (c.playerItems[slot] - 1 != itemId) { // cheat client
 			return;
 		}
 		c.getPA().magicOnItems(slot, itemId, spellId);

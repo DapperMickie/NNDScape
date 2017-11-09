@@ -10,18 +10,17 @@ import server.model.players.Client;
 
 public class Connection {
 
-	public static ArrayList <String>bannedIps = new ArrayList<String> ();
-	public static ArrayList <String>bannedNames = new ArrayList<String> ();
-	public static ArrayList <String>mutedIps = new ArrayList<String> ();
-	public static ArrayList <String>mutedNames = new ArrayList<String> ();
-	public static ArrayList <String>loginLimitExceeded = new ArrayList<String> ();
-	public static ArrayList <String>starterRecieved1 = new ArrayList<String> ();
-	public static ArrayList <String>starterRecieved2 = new ArrayList<String> ();
-	
-	
+	public static ArrayList<String> bannedIps = new ArrayList<String>();
+	public static ArrayList<String> bannedNames = new ArrayList<String>();
+	public static ArrayList<String> mutedIps = new ArrayList<String>();
+	public static ArrayList<String> mutedNames = new ArrayList<String>();
+	public static ArrayList<String> loginLimitExceeded = new ArrayList<String>();
+	public static ArrayList<String> starterRecieved1 = new ArrayList<String>();
+	public static ArrayList<String> starterRecieved2 = new ArrayList<String>();
+
 	/**
-	* Adds the banned usernames and ips from the text file to the ban list
-	**/
+	 * Adds the banned usernames and ips from the text file to the ban list
+	 **/
 	public static void initialize() {
 		banUsers();
 		banIps();
@@ -29,150 +28,147 @@ public class Connection {
 		muteIps();
 		appendStarters();
 		appendStarters2();
-	}	
-	
+	}
+
 	/**
 	 * Adding Name To List
 	 */
 	public static void addIpToLoginList(String IP) {
 		loginLimitExceeded.add(IP);
 	}
-	
+
 	/**
 	 * Remove Ip From List
 	 */
 	public static void removeIpFromLoginList(String IP) {
 		loginLimitExceeded.remove(IP);
 	}
-	
+
 	/**
 	 * Clear Name List
 	 */
 	public static void clearLoginList() {
 		loginLimitExceeded.clear();
 	}
-	
+
 	public static boolean checkLoginList(String IP) {
 		loginLimitExceeded.add(IP);
 		int num = 0;
-		for(String ips : loginLimitExceeded) {
-			if(IP.equals(ips)) {
+		for (String ips : loginLimitExceeded) {
+			if (IP.equals(ips)) {
 				num++;
 			}
 		}
-		if(num > 5) {
+		if (num > 5) {
 			return true;
 		}
 		return false;
 	}
-	
+
 	public static void unMuteUser(String name) {
 		mutedNames.remove(name);
-		deleteFromFile("./Data/bans/UsersMuted.txt", name);	
+		deleteFromFile("./Data/bans/UsersMuted.txt", name);
 	}
-	
+
 	public static void unIPMuteUser(String name) {
 		mutedIps.remove(name);
-		deleteFromFile("./Data/bans/IpsMuted.txt", name);	
+		deleteFromFile("./Data/bans/IpsMuted.txt", name);
 	}
-	
+
 	/**
-	* Adding Ban IP
-	**/
+	 * Adding Ban IP
+	 **/
 	public static void addIpToBanList(String IP) {
 		bannedIps.add(IP);
 	}
-	
+
 	public static void addIpToMuteList(String IP) {
 		mutedIps.add(IP);
 		addIpToMuteFile(IP);
 	}
-	
-	
+
 	/**
-	* Removing Ban IP
-	**/
+	 * Removing Ban IP
+	 **/
 	public static void removeIpFromBanList(String IP) {
 		bannedIps.remove(IP);
 	}
-	
+
 	/**
-	* Contains Ban IP
-	**/
+	 * Contains Ban IP
+	 **/
 	public static boolean isIpBanned(String IP) {
-		if(bannedIps.contains(IP)) {
+		if (bannedIps.contains(IP)) {
 			return true;
 		}
 		return false;
 	}
-	
 
 	/**
-	* Adding banned username
-	**/
+	 * Adding banned username
+	 **/
 	public static void addNameToBanList(String name) {
 		bannedNames.add(name.toLowerCase());
 	}
-	
+
 	public static void addNameToMuteList(String name) {
 		mutedNames.add(name.toLowerCase());
 		addUserToFile(name);
 	}
-	
-	
+
 	/**
-	* Removing banned username
-	**/
+	 * Removing banned username
+	 **/
 	public static void removeNameFromBanList(String name) {
 		bannedNames.remove(name.toLowerCase());
 		deleteFromFile("./Data/bans/UsersBanned.txt", name);
 	}
-	
+
 	public static void removeNameFromMuteList(String name) {
 		bannedNames.remove(name.toLowerCase());
 		deleteFromFile("./Data/bans/UsersMuted.txt", name);
 	}
-	
+
 	public static void deleteFromFile(String file, String name) {
 		try {
 			BufferedReader r = new BufferedReader(new FileReader(file));
 			ArrayList<String> contents = new ArrayList<String>();
-			while(true) {
+			while (true) {
 				String line = r.readLine();
-				if(line == null) {
+				if (line == null) {
 					break;
 				} else {
 					line = line.trim();
 				}
-				if(!line.equalsIgnoreCase(name)) {
+				if (!line.equalsIgnoreCase(name)) {
 					contents.add(line);
 				}
 			}
 			r.close();
 			BufferedWriter w = new BufferedWriter(new FileWriter(file));
-			for(String line : contents) {
+			for (String line : contents) {
 				w.write(line, 0, line.length());
 				w.newLine();
 			}
 			w.flush();
 			w.close();
-		} catch (Exception e) {}
+		} catch (Exception e) {
+		}
 	}
-	
+
 	/**
-	* Contains banned username
-	**/
+	 * Contains banned username
+	 **/
 	public static boolean isNamedBanned(String name) {
-		if(bannedNames.contains(name.toLowerCase())) {
+		if (bannedNames.contains(name.toLowerCase())) {
 			return true;
 		}
 		return false;
 	}
-	
-	
+
 	/**
-	* Reads all usernames from text file then adds them all to the ban list
-	**/
+	 * Reads all usernames from text file then adds them all to the ban list
+	 **/
 	public static void banUsers() {
 		try {
 			BufferedReader in = new BufferedReader(new FileReader("./Data/bans/UsersBanned.txt"));
@@ -188,7 +184,7 @@ public class Connection {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void muteUsers() {
 		try {
 			BufferedReader in = new BufferedReader(new FileReader("./Data/bans/UsersMuted.txt"));
@@ -204,9 +200,10 @@ public class Connection {
 			e.printStackTrace();
 		}
 	}
+
 	/**
-	* Reads all the Ips from text file then adds them all to ban list
-	**/
+	 * Reads all the Ips from text file then adds them all to ban list
+	 **/
 	public static void banIps() {
 		try {
 			BufferedReader in = new BufferedReader(new FileReader("./Data/bans/IpsBanned.txt"));
@@ -222,7 +219,7 @@ public class Connection {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void muteIps() {
 		try {
 			BufferedReader in = new BufferedReader(new FileReader("./Data/bans/IpsMuted.txt"));
@@ -238,72 +235,70 @@ public class Connection {
 			e.printStackTrace();
 		}
 	}
+
 	/**
-	* Writes the username into the text file - when using the ::ban playername command
-	**/
+	 * Writes the username into the text file - when using the ::ban playername
+	 * command
+	 **/
 	public static void addNameToFile(String Name) {
 		try {
 			BufferedWriter out = new BufferedWriter(new FileWriter("./Data/bans/UsersBanned.txt", true));
-		    try {
+			try {
 				out.newLine();
 				out.write(Name);
-		    } finally {
+			} finally {
 				out.close();
-		    }
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void addUserToFile(String Name) {
 		try {
 			BufferedWriter out = new BufferedWriter(new FileWriter("./Data/bans/UsersMuted.txt", true));
-		    try {
+			try {
 				out.newLine();
 				out.write(Name);
-		    } finally {
+			} finally {
 				out.close();
-		    }
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
-	
 
-	
-	
 	/**
-	* Writes the IP into the text file - use ::ipban username
-	**/
+	 * Writes the IP into the text file - use ::ipban username
+	 **/
 	public static void addIpToFile(String Name) {
 		try {
 			BufferedWriter out = new BufferedWriter(new FileWriter("./Data/bans/IpsBanned.txt", true));
-		    try {
+			try {
 				out.newLine();
 				out.write(Name);
-		    } finally {
+			} finally {
 				out.close();
-		    }
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void addIpToMuteFile(String Name) {
 		try {
 			BufferedWriter out = new BufferedWriter(new FileWriter("./Data/bans/IpsMuted.txt", true));
-		    try {
+			try {
 				out.newLine();
 				out.write(Name);
-		    } finally {
+			} finally {
 				out.close();
-		    }
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static boolean isMuted(Client c) {
 		if (mutedNames.contains(c.playerName.toLowerCase()) || mutedIps.contains(c.connectedFrom))
 			return true;
@@ -311,7 +306,7 @@ public class Connection {
 			return false;
 	}
 
-public static void appendStarters() {
+	public static void appendStarters() {
 		try {
 			BufferedReader in = new BufferedReader(new FileReader("./Data/starters/FirstStarterRecieved.txt"));
 			String data = null;
@@ -343,8 +338,7 @@ public static void appendStarters() {
 		}
 	}
 
-
-        public static void addIpToStarter1(String IP) {
+	public static void addIpToStarter1(String IP) {
 		starterRecieved1.add(IP);
 		addIpToStarterList1(IP);
 	}
@@ -357,12 +351,12 @@ public static void appendStarters() {
 	public static void addIpToStarterList1(String Name) {
 		try {
 			BufferedWriter out = new BufferedWriter(new FileWriter("./Data/starters/FirstStarterRecieved.txt", true));
-		    try {
+			try {
 				out.newLine();
 				out.write(Name);
-		    } finally {
+			} finally {
 				out.close();
-		    }
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -371,27 +365,26 @@ public static void appendStarters() {
 	public static void addIpToStarterList2(String Name) {
 		try {
 			BufferedWriter out = new BufferedWriter(new FileWriter("./Data/starters/SecondStarterRecieved.txt", true));
-		    try {
+			try {
 				out.newLine();
 				out.write(Name);
-		    } finally {
+			} finally {
 				out.close();
-		    }
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-
-       public static boolean hasRecieved1stStarter(String IP) {
-		if(starterRecieved1.contains(IP)) {
+	public static boolean hasRecieved1stStarter(String IP) {
+		if (starterRecieved1.contains(IP)) {
 			return true;
 		}
 		return false;
 	}
 
 	public static boolean hasRecieved2ndStarter(String IP) {
-		if(starterRecieved2.contains(IP)) {
+		if (starterRecieved2.contains(IP)) {
 			return true;
 		}
 		return false;

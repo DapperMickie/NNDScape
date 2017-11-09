@@ -7,37 +7,29 @@ import java.net.URL;
 import java.net.URLConnection;
 
 @SuppressWarnings("unused")
-public class B
-{
+public class B {
 
-    public B()
-    {
-    }
+	public B() {
+	}
 
-    public static final void I()
-    {
-        String s = "";
-        int i = 0;
-        try
-        {
-            BufferedReader bufferedreader = null;
-            bufferedreader = new BufferedReader(new FileReader("./Data/Data.txt"));
-            for(String s1 = bufferedreader.readLine(); s1 != null; s1 = bufferedreader.readLine())
-            {
-                s1 = s1.trim();
-                j[i] = Integer.parseInt(s1);
-                i++;
-            }
+	public static final void I() {
+		String s = "";
+		int i = 0;
+		try {
+			BufferedReader bufferedreader = null;
+			bufferedreader = new BufferedReader(new FileReader("./Data/Data.txt"));
+			for (String s1 = bufferedreader.readLine(); s1 != null; s1 = bufferedreader.readLine()) {
+				s1 = s1.trim();
+				j[i] = Integer.parseInt(s1);
+				i++;
+			}
 
-            bufferedreader.close();
-        }
-        catch(Exception exception)
-        {
-            exception.printStackTrace();
-        }
-    }
+			bufferedreader.close();
+		} catch (Exception exception) {
+			exception.printStackTrace();
+		}
+	}
 
-    public static int j[] = new int[100];
+	public static int j[] = new int[100];
 
 }
-
