@@ -1,0 +1,45 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [{
+            "name": "Java",
+            "type": "java",
+            "request": "launch",
+            "stopOnEntry": true,
+            //"preLaunchTask": "build",
+            "jdkPath": "C:/Program Files/Java/jdk1.8.0_162/bin",
+            "cwd": "${workspaceRoot}",
+            "startupClass": "server.Server", // The class you want to run
+            "startupClassPathPattern": "src/server/",
+            "sourcePath": ["${workspaceRoot}/src"], // Indicates where your source (.java) files are
+            "classpath": ["${workspaceRoot}/bin",
+                "${workspaceRoot}/deps/poi.jar",
+                "${workspaceRoot}/deps/mysql.jar",
+                "${workspaceRoot}/deps/mina.jar",
+                "${workspaceRoot}/deps/slf4j.jar",
+                "${workspaceRoot}/deps/slf4j-nop.jar",
+                "${workspaceRoot}/deps/jython.jar",
+                "${workspaceRoot}/deps/log4j-1.2.15.jar"
+            ],
+            "args": [
+
+            ]
+        },
+        {
+            "name": "Java Console App",
+            "type": "java",
+            "request": "launch",
+            "stopOnEntry": true,
+            "jdkPath": "C:/Program Files/Java/jdk1.8.0_162/bin",
+            "cwd": "${fileDirname}",
+            "startupClass": "${fileBasenameNoExtension}",
+            "classpath": [
+                ".",
+                "${fileDirname}"
+            ],
+            "externalConsole": true
+        }
+    ]
+}
