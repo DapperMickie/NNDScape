@@ -1,11 +1,13 @@
-/ChatLogs/
-/PMLogs/
+/cfg/
+/characters/
 /charactersECOBOOST$TEMP
 /data/
 /dupers.txt
 /lolmap.bin
 /objectSize.cfg
 /scripts/
+/ChatLogs/
+/PMLogs/
 /server/
 /starters/
 /Dexter.class
